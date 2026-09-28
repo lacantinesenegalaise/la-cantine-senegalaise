@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cantine Sénégalaise</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0d0d0d;
+  --dark: #1a1a1a;
+  --red: #e6392b;
+  --red-dark: #c92a1e;
+  --white: #ffffff;
+  --gray: #f5f5f5;
+  --text: #333;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.5;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(13,13,13,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--red);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  background: #000;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  padding: 8px 18px;
+  border-radius: 4px;
+  border-bottom: 4px solid var(--red);
+  text-align: center;
+  line-height: 1.2;
+}
+.logo span { display: block; font-size: 0.85rem; }
+.nav-btn {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+.nav-btn:hover { background: var(--red-dark); }
+
+/* Hero */
+.hero {
+  height: 85vh;
+  min-height: 520px;
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
+              url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  margin-bottom: 15px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.hero p {
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin-bottom: 30px;
+  opacity: 0.95;
+}
+.hero-btns {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn {
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+.btn-red { background: var(--red); color: white; }
+.btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+.btn-outline:hover { background: white; color: var(--black); }
+
+/* Info bar */
+.info-bar {
+  background: var(--dark);
+  padding: 18px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  text-align: center;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #333;
+}
+.info-bar strong { color: var(--red); }
+
+/* Menu */
+.menu-section {
+  padding: 50px 20px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.section-subtitle {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 35px;
+}
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.cat-btn {
+  background: var(--dark);
+  color: white;
+  border: 1px solid #333;
+  padding: 10px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+.cat-btn.active, .cat-btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+}
+.card {
+  background: var(--dark);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.3s;
+  border: 1px solid #2a2a2a;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(230,57,43,0.15); }
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.card-body { padding: 16px; }
+.card-body h3 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.price {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qty-control {
+  display: flex;
+  align-items: center;
+  background: #111;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.qty-btn {
+  background: none;
+  border: none;
+  color: white;
+  width: 34px;
+  height: 34px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.qty-value {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 600;
+}
+.add-btn {
+  flex: 1;
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.add-btn:hover { background: var(--red-dark); }
+
+/* Cart floating */
+.cart-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: var(--red);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(230,57,43,0.4);
+  z-index: 999;
+  border: none;
+}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: white;
+  color: var(--red);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cart panel */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: var(--dark);
+  z-index: 2000;
+  transition: 0.35s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+}
+.cart-panel.open { right: 0; }
+.cart-header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-header h2 { font-size: 1.3rem; }
+.close-cart {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+  align-items: center;
+}
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.cart-item-info { flex: 1; }
+.cart-item-info h4 { font-size: 0.95rem; margin-bottom: 4px; }
+.cart-item-info .price { font-size: 0.9rem; margin: 0; }
+.cart-item .qty-control { background: #222; }
+.remove-item {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+}
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #333;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.total span { color: var(--red); }
+
+/* Modal overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1500;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+.overlay.show { opacity: 1; visibility: visible; }
+
+/* Checkout modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: var(--dark);
+  width: 95%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  z-index: 2500;
+  padding: 25px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  border: 1px solid #333;
+}
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.mode-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.mode-btn {
+  padding: 14px 8px;
+  border: 2px solid #444;
+  background: #111;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+.mode-btn.active {
+  border-color: var(--red);
+  background: rgba(230,57,43,0.15);
+  color: var(--red);
+}
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+  font-size: 1rem;
+}
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.table-btn {
+  padding: 12px 5px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.table-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+}
+.hidden { display: none !important; }
+.whatsapp-btn {
+  width: 100%;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.whatsapp-btn:hover { background: #1da851; }
+.whatsapp-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+  background: #000;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 2px solid var(--red);
+}
+footer h3 { margin-bottom: 15px; }
+footer p { color: #aaa; margin-bottom: 8px; font-size: 0.95rem; }
+footer a { color: var(--red); font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .mode-btns { grid-template-columns: 1fr; }
+  .tables-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero { height: 70vh; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    LA CANTINE<br><span>SÉNÉGALAISE</span>
+  </div>
+  <button class="nav-btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Voir le menu</button>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>La Cantine Sénégalaise</h1>
+  <p>Saveurs authentiques du Sénégal et du monde au cœur de Poto-Poto. Plats faits maison, livraison disponible.</p>
+  <div class="hero-btns">
+    <button class="btn btn-red" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Voir le menu</button>
+    <button class="btn btn-outline" onclick="openCart()">Commander maintenant</button>
+  </div>
+</section>
+
+<!-- Info -->
+<div class="info-bar">
+  <div>📍 Avenue de France, Poto-Poto<br>croisement Marien Ngouabi</div>
+  <div>📞 <strong>+242 06 504 05 93</strong></div>
+  <div>🚚 Livraison disponible</div>
+</div>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <h2 class="section-title">Notre Menu</h2>
+  <p class="section-subtitle">Sélectionnez vos plats et composez votre commande</p>
+
+  <div class="categories" id="categories"></div>
+  <div class="menu-grid" id="menu-grid"></div>
+</section>
+
+<!-- Cart button -->
+<button class="cart-float" onclick="openCart()">
+  🛒
+  <span class="cart-count" id="cart-count">0</span>
+</button>
+
+<!-- Cart Panel -->
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h2>Votre panier</h2>
+    <button class="close-cart" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="total">Total <span id="cart-total">0 FCFA</span></div>
+    <button class="btn btn-red" style="width:100%" onclick="openCheckout()" id="validate-btn" disabled>Valider ma commande</button>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- Checkout Modal -->
+<div class="modal" id="checkout-modal">
+  <h2>Finaliser la commande</h2>
+  
+  <div class="mode-btns">
+    <button class="mode-btn active" data-mode="surplace" onclick="selectMode('surplace')">Sur place</button>
+    <button class="mode-btn" data-mode="emporter" onclick="selectMode('emporter')">À emporter</button>
+    <button class="mode-btn" data-mode="livraison" onclick="selectMode('livraison')">Livraison</button>
+  </div>
+
+  <!-- Sur place -->
+  <div id="form-surplace">
+    <div class="form-group">
+      <label>Choisissez votre table</label>
+      <div class="tables-grid" id="tables-grid"></div>
+    </div>
+  </div>
+
+  <!-- À emporter -->
+  <div id="form-emporter" class="hidden">
+    <div class="form-group">
+      <label>Votre nom</label>
+      <input type="text" id="name-emporter" placeholder="Nom complet">
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" id="phone-emporter" placeholder="Ex: 06 000 00 00">
+    </div>
+  </div>
+
+  <!-- Livraison -->
+  <div id="form-livraison" class="hidden">
+    <div class="form-group">
+      <label>Votre nom</label>
+      <input type="text" id="name-livraison" placeholder="Nom complet">
+    </div>
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" id="phone-livraison" placeholder="Ex: 06 000 00 00">
+    </div>
+    <div class="form-group">
+      <label>Adresse de livraison</label>
+      <input type="text" id="address-livraison" placeholder="Quartier, rue, repère...">
+    </div>
+  </div>
+
+  <button class="whatsapp-btn" id="send-whatsapp" onclick="sendWhatsApp()" disabled>
+    Envoyer ma commande sur WhatsApp
+  </button>
+</div>
+
+<!-- Footer -->
+<footer>
+  <h3>La Cantine Sénégalaise</h3>
+  <p>Avenue de France, Poto-Poto, croisement Marien Ngouabi</p>
+  <p>WhatsApp : <a href="https://wa.me/242065040593">+242 06 504 05 93</a></p>
+  <p>Livraison disponible</p>
+</footer>
+
+<script>
+// ========== DATA ==========
+const menuData = {
+  "Nos Plats": [
+    { id: 1, name: "Poisson aux aubergines", price: 2500, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" },
+    { id: 2, name: "KFC + ACC", price: 2500, img: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=600&q=80" },
+    { id: 3, name: "Poulet mayo", price: 2500, img: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&q=80" },
+    { id: 4, name: "Ailes de poulet + ACC", price: 2500, img: "https://images.unsplash.com/photo-1567620832904-9fc6debc209f?w=600&q=80" },
+    { id: 5, name: "Poulet + ACC", price: 2500, img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80" },
+    { id: 6, name: "Poisson + ACC", price: 3000, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" },
+    { id: 7, name: "Viande + ACC", price: 3000, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" },
+    { id: 8, name: "Queue de bœuf sauté", price: 3500, img: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=80" },
+    { id: 9, name: "Saka-saka poulet/poisson", price: 3000, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" },
+    { id: 10, name: "Bouillon de queue de bœuf", price: 3500, img: "https://images.unsplash.com/photo-1547592180-85f173990854?w=600&q=80" },
+    { id: 11, name: "Bouillon sauvage", price: 3000, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" },
+    { id: 12, name: "Bouillon d'eau douce", price: 3000, img: "https://images.unsplash.com/photo-1547592180-85f173990854?w=600&q=80" },
+    { id: 13, name: "Riz blanc", price: 500, img: "https://images.unsplash.com/photo-1516684669134-de6f7c473a2a?w=600&q=80" },
+    { id: 14, name: "Manioc", price: 500, img: "https://images.unsplash.com/photo-1604329760661-e71dc83f2b4b?w=600&q=80" },
+    { id: 15, name: "Pain", price: 500, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80" },
+    { id: 16, name: "Frite", price: 1000, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+    { id: 17, name: "Riz rouge", price: 1000, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600&q=80" },
+    { id: 18, name: "Riz cantonais", price: 1500, img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" }
+  ],
+  "Jus Naturels": [
+    { id: 19, name: "Boisson énergisante", price: 1500, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" },
+    { id: 20, name: "Jus gazeux 30 cl", price: 600, img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=600&q=80" },
+    { id: 21, name: "Verre de bissap", price: 500, img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=600&q=80" },
+    { id: 22, name: "Verre de gingembre", price: 500, img: "https://images.unsplash.com/photo-1621506283937-8f29f0fcf0e6?w=600&q=80" },
+    { id: 23, name: "Brique de jus", price: 2000, img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&q=80" },
+    { id: 24, name: "Jus de baobab", price: 1000, img: "https://images.unsplash.com/photo-1621506283937-8f29f0fcf0e6?w=600&q=80" },
+    { id: 25, name: "1 litre de gingembre", price: 2000, img: "https://images.unsplash.com/photo-1621506283937-8f29f0fcf0e6?w=600&q=80" },
+    { id: 26, name: "1 litre de bissap", price: 2000, img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=600&q=80" },
+    { id: 27, name: "1 litre de baobab", price: 3000, img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&q=80" },
+    { id: 28, name: "Eau PM", price: 500, img: "https://images.unsplash.com/photo-1560023907-5e23631ee153?w=600&q=80" },
+    { id: 29, name: "Eau GM", price: 1000, img: "https://images.unsplash.com/photo-1560023907-5e23631ee153?w=600&q=80" }
+  ],
+  "Fast-Food": [
+    { id: 30, name: "Sandwich poulet", price: 1000, img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&q=80" },
+    { id: 31, name: "Sandwich viande", price: 1500, img: "https://images.unsplash.com/photo-1481070414801-51fd732d7184?w=600&q=80" },
+    { id: 32, name: "Chawarma poulet", price: 1500, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80" },
+    { id: 33, name: "Chawarma viande", price: 2000, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80" },
+    { id: 34, name: "Tacos poulet", price: 2000, img: "https://images.unsplash.com/photo-1565299585323-38174c3d0c0c?w=600&q=80" },
+    { id: 35, name: "Tacos viande", price: 2500, img: "https://images.unsplash.com/photo-1565299585323-38174c3d0c0c?w=600&q=80" }
+  ],
+  "Pizzas": [
+    { id: 36, name: "Pizza Margherita", price: 2000, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+    { id: 37, name: "Pizza poulet", price: 2500, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+    { id: 38, name: "Pizza végétarienne", price: 2500, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d44?w=600&q=80" },
+    { id: 39, name: "Pizza américaine", price: 3500, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" },
+    { id: 40, name: "Pizza reine", price: 4000, img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=80" },
+    { id: 41, name: "Pizza mortadela", price: 2500, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80" }
+  ],
+  "Pâtes": [
+    { id: 42, name: "Spaghetti sauce tomate", price: 1000, img: "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?w=600&q=80" },
+    { id: 43, name: "Spaghetti au poulet", price: 1500, img: "https://images.unsplash.com/photo-1622973536968-3ead9e780960?w=600&q=80" },
+    { id: 44, name: "Spaghetti au viande de bœuf", price: 3000, img: "https://images.unsplash.com/photo-1622973536968-3ead9e780960?w=600&q=80" },
+    { id: 45, name: "Spaghetti viande hachée", price: 2000, img: "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?w=600&q=80" }
+  ],
+  "Omelettes": [
+    { id: 46, name: "Omelette nature", price: 1000, img: "https://images.unsplash.com/photo-1510693206962-5f58603d7cf2?w=600&q=80" },
+    { id: 47, name: "Œuf au plat", price: 1000, img: "https://images.unsplash.com/photo-1482049016689-2ed3e1b77ed0?w=600&q=80" },
+    { id: 48, name: "Omelette garnie", price: 1500, img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80" },
+    { id: 49, name: "Omelette mexicaine", price: 2000, img: "https://images.unsplash.com/photo-1510693206962-5f58603d7cf2?w=600&q=80" }
+  ],
+  "Salades / Entrées": [
+    { id: 50, name: "Salade crudités", price: 1500, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" },
+    { id: 51, name: "Salade d'avocat", price: 2000, img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80" },
+    { id: 52, name: "Salade composée", price: 2000, img: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&q=80" },
+    { id: 53, name: "Salade César au poulet", price: 3000, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80" }
+  ],
+  "Plats Sénégalais": [
+    { id: 54, name: "Thiep poulet", price: 2500, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600&q=80" },
+    { id: 55, name: "Thiep poisson", price: 3000, img: "https://images.unsplash.com/photo-1516684669134-de6f7c473a2a?w=600&q=80" },
+    { id: 56, name: "Thiep viande", price: 3000, img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" },
+    { id: 57, name: "Yassa poulet", price: 2500, img: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&q=80" },
+    { id: 58, name: "Yassa poisson", price: 3000, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" },
+    { id: 59, name: "Yassa viande", price: 3000, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" },
+    { id: 60, name: "Maffé poulet", price: 2500, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" },
+    { id: 61, name: "Maffé poisson", price: 3000, img: "https://images.unsplash.com/photo-1547592180-85f173990854?w=600&q=80" },
+    { id: 62, name: "Maffé viande", price: 3000, img: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=80" },
+    { id: 63, name: "Attiéké poulet", price: 2500, img: "https://images.unsplash.com/photo-1604329760661-e71dc83f2b4b?w=600&q=80" },
+    { id: 64, name: "Attiéké poisson", price: 3000, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" },
+    { id: 65, name: "Attiéké viande", price: 3000, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" }
+  ],
+  "Cocktails": [
+    { id: 66, name: "Nana Punch", price: 3500, img: "https://images.unsplash.com/photo-1514362545857-3bc165560336?w=600&q=80" },
+    { id: 67, name: "Mojito", price: 2500, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80" },
+    { id: 68, name: "Cantine", price: 3500, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&q=80" },
+    { id: 69, name: "Mix Passion", price: 3000, img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=600&q=80" },
+    { id: 70, name: "Bleu Lagon", price: 3000, img: "https://images.unsplash.com/photo-1497534446932-c362f2d5c0d0?w=600&q=80" },
+    { id: 71, name: "Bora Bora", price: 3500, img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&q=80" },
+    { id: 72, name: "Aimé Love", price: 3000, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80" },
+    { id: 73, name: "Virgin Margarita", price: 3000, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&q=80" }
+  ]
+};
+
+// ========== STATE ==========
+let cart = {};
+let currentMode = 'surplace';
+let selectedTable = null;
+
+// ========== INIT ==========
+function init() {
+  // Categories
+  const catContainer = document.getElementById('categories');
+  const cats = Object.keys(menuData);
+  cats.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => showCategory(cat, btn);
+    catContainer.appendChild(btn);
+  });
+  showCategory(cats[0]);
+
+  // Tables
+  const tablesGrid = document.getElementById('tables-grid');
+  for (let i = 1; i <= 20; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'table-btn';
+    btn.textContent = i;
+    btn.onclick = () => {
+      document.querySelectorAll('.table-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTable = i;
+      checkForm();
+    };
+    tablesGrid.appendChild(btn);
+  }
+
+  // Form listeners
+  ['name-emporter','phone-emporter','name-livraison','phone-livraison','address-livraison'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkForm);
+  });
+}
+
+function showCategory(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.cat-btn')[0].classList.add('active');
+
+  const grid = document.getElementById('menu-grid');
+  grid.innerHTML = '';
+  menuData[cat].forEach(item => {
+    const qty = cart[item.id] ? cart[item.id].qty : 0;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.name}" loading="lazy">
+      <div class="card-body">
+        <h3>${item.name}</h3>
+        <div class="price">${item.price.toLocaleString('fr-FR')} FCFA</div>
+        <div class="card-actions">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-value" id="qty-${item.id}">${qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+          <button class="add-btn" onclick="addToCart(${item.id})">Ajouter</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ========== CART ==========
+function findItem(id) {
+  for (const cat of Object.values(menuData)) {
+    const found = cat.find(i => i.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function changeQty(id, delta) {
+  const item = findItem(id);
+  if (!item) return;
+  if (!cart[id]) cart[id] = { ...item, qty: 0 };
+  cart[id].qty = Math.max(0, cart[id].qty + delta);
+  if (cart[id].qty === 0) delete cart[id];
+  updateUI();
+}
+
+function addToCart(id) {
+  const item = findItem(id);
+  if (!item) return;
+  if (!cart[id]) cart[id] = { ...item, qty: 0 };
+  cart[id].qty += 1;
+  updateUI();
+}
+
+function updateUI() {
+  // Update quantities on cards
+  Object.keys(menuData).forEach(cat => {
+    menuData[cat].forEach(item => {
+      const el = document.getElementById(`qty-${item.id}`);
+      if (el) el.textContent = cart[item.id] ? cart[item.id].qty : 0;
+    });
+  });
+
+  // Cart count & total
+  let count = 0, total = 0;
+  const itemsContainer = document.getElementById('cart-items');
+  itemsContainer.innerHTML = '';
+
+  for (const id in cart) {
+    const item = cart[id];
+    count += item.qty;
+    total += item.qty * item.price;
+
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <div class="price">${item.price.toLocaleString('fr-FR')} FCFA</div>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(${id}, -1)">−</button>
+        <span class="qty-value">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${id}, 1)">+</button>
+      </div>
+      <button class="remove-item" onclick="changeQty(${id}, -999)">×</button>
+    `;
+    itemsContainer.appendChild(div);
+  }
+
+  if (count === 0) {
+    itemsContainer.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
+  }
+
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total').textContent = total.toLocaleString('fr-FR') + ' FCFA';
+  document.getElementById('validate-btn').disabled = count === 0;
+}
+
+// ========== CART PANEL ==========
+function openCart() {
+  document.getElementById('cart-panel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+function closeCart() {
+  document.getElementById('cart-panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ========== CHECKOUT ==========
+function openCheckout() {
+  if (Object.keys(cart).length === 0) return;
+  closeCart();
+  document.getElementById('checkout-modal').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+  checkForm();
+}
+
+function closeAll() {
+  closeCart();
+  document.getElementById('checkout-modal').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function selectMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+
+  document.getElementById('form-surplace').classList.toggle('hidden', mode !== 'surplace');
+  document.getElementById('form-emporter').classList.toggle('hidden', mode !== 'emporter');
+  document.getElementById('form-livraison').classList.toggle('hidden', mode !== 'livraison');
+  checkForm();
+}
+
+function checkForm() {
+  let valid = false;
+  if (currentMode === 'surplace') {
+    valid = selectedTable !== null;
+  } else if (currentMode === 'emporter') {
+    const name = document.getElementById('name-emporter').value.trim();
+    const phone = document.getElementById('phone-emporter').value.trim();
+    valid = name.length > 1 && phone.length > 6;
+  } else if (currentMode === 'livraison') {
+    const name = document.getElementById('name-livraison').value.trim();
+    const phone = document.getElementById('phone-livraison').value.trim();
+    const address = document.getElementById('address-livraison').value.trim();
+    valid = name.length > 1 && phone.length > 6 && address.length > 5;
+  }
+  document.getElementById('send-whatsapp').disabled = !valid;
+}
+
+function sendWhatsApp() {
+  let message = "Bonjour La Cantine Sénégalaise !%0A%0AJe souhaite passer une commande.%0A%0A*Ma commande :*%0A";
+  let total = 0;
+
+  for (const id in cart) {
+    const item = cart[id];
+    const lineTotal = item.qty * item.price;
+    total += lineTotal;
+    message += `• ${item.name} × ${item.qty} : ${lineTotal.toLocaleString('fr-FR')} FCFA%0A`;
+  }
+  message += `%0A*Total : ${total.toLocaleString('fr-FR')} FCFA*%0A%0A`;
+
+  if (currentMode === 'surplace') {
+    message += `*Mode :* Sur place%0A*Numéro de table :* Table ${selectedTable}%0A`;
+  } else if (currentMode === 'emporter') {
+    const name = document.getElementById('name-emporter').value.trim();
+    const phone = document.getElementById('phone-emporter').value.trim();
+    message += `*Mode :* À emporter%0A*Nom :* ${name}%0A*Téléphone :* ${phone}%0A`;
+  } else {
+    const name = document.getElementById('name-livraison').value.trim();
+    const phone = document.getElementById('phone-livraison').value.trim();
+    const address = document.getElementById('address-livraison').value.trim();
+    message += `*Mode :* Livraison%0A*Nom :* ${name}%0A*Téléphone :* ${phone}%0A*Adresse :* ${address}%0A`;
+  }
+
+  message += "%0AMerci de confirmer ma commande.";
+
+  const url = `https://wa.me/242065040593?text=${message}`;
+  window.open(url, '_blank');
+}
+
+// Start
+init();
+updateUI();
+</script>
+</body>
+</html>
